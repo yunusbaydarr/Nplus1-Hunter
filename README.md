@@ -46,7 +46,7 @@ If you want to change them, use `application.yml` or `application.properties`:
 nplus1:
   enabled: true             # Enable/Disable the library (Default: true)
   threshold: 5              # How many repetitions before warning? (Default: 5)
-  log-interval: 20          # Logs are written every 20th occurrence. (Default: 1)
+  log-interval: 20          # Logs are written every 20th occurrence. (Default: 1) # This option is only valid when nplus1.error-level=LOG.
   error-level: LOG          # LOG (Only warns) or EXCEPTION (Crashes app) (Default: LOG)
 ```
 
@@ -59,6 +59,8 @@ nplus1.enabled=false
 nplus1.threshold=3
 
 # Logs are written every 20th occurrence. (Default: 1)
+# This option is only valid when nplus1.error-level=LOG.
+
 nplus1.log-interval= 20
 
 # LOG (Only warns) or EXCEPTION (Crashes app) (Default: LOG)
