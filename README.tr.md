@@ -94,6 +94,7 @@ Ekstra bir yapılandırma yapmanıza gerek yoktur.
 
 Uygulamanızı başlatın ve herhangi bir endpoint’e istek atın.  
 Eğer N+1 problemi oluşursa, ilgili uyarıyı console üzerinde göreceksiniz.
+
 ---
 
 ## 📸 Örnek Çıktı
