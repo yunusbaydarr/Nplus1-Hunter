@@ -48,7 +48,19 @@ public class QueryCaptureListener implements QueryExecutionListener {
             int count = context.getQueryCounts().get(key);
 
             if (count > properties.getThreshold()) {
-                handleNPlusOne(originalSql, count, location);
+
+                if ("EXCEPTION".equalsIgnoreCase(properties.getErrorLevel())) {
+                    throw new RuntimeException(String.format("🚨 N+1 HATASI! (Tekrar: %d) - %s", count, location));
+                }
+
+                boolean isFirstViolation = (count == properties.getThreshold() + 1);
+
+
+                boolean isIntervalHit = (count % properties.getLogInterval() == 0);
+
+                if (isFirstViolation || isIntervalHit) {
+                    handleNPlusOne(originalSql, count, location);
+                }
             }
         }
     }

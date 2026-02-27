@@ -13,6 +13,8 @@ public class NPlusOneProperties {
 
     private String errorLevel = "LOG";
 
+    private int logInterval = 1;
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -27,6 +29,14 @@ public class NPlusOneProperties {
 
     public void setErrorLevel(String errorLevel) {
         this.errorLevel = errorLevel;
+    }
+
+    public int getLogInterval() {
+        return logInterval;
+    }
+
+    public void setLogInterval(int logInterval) {
+        this.logInterval = logInterval;
     }
 
     public int getThreshold() {

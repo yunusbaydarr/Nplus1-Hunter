@@ -62,20 +62,26 @@ implementation 'com.nplus1-hunter:Nplus1-Hunter:0.0.1-SNAPSHOT'
 ## ⚙️ Ayarlar (Opsiyonel)
 
 Varsayılan ayarlar çoğu proje için yeterlidir.  
-Değiştirmek isterseniz `application.yml` dosyasını kullanabilirsiniz:
+Değiştirmek isterseniz `application.yml` veya `application.properties` dosyasını kullanabilirsiniz:
 
+#### application.yml
 ```yaml
 nplus1:
   enabled: true             # Kütüphaneyi aç/kapa (Varsayılan: true)
-  threshold: 5              # Uyarı vermeden önce kaç tekrar? (Varsayılan: 5)
+  threshold: 5              # Uyarı vermeden önce kaç tekrar? (Varsayılan: 3)
+  log-interval: 20          # 20 ve katlarında log yazılır. (Varsayılan: 1)
   error-level: LOG          # LOG (Sadece uyarır) veya EXCEPTION (Uygulamayı durdurur) (Varsayılan: LOG)
 ```
+#### application.properties
 ```properties
 # Kütüphaneyi aç/kapa (Varsayılan: true)
 nplus1.enabled=false
 
 # Uyarı vermeden önce kaç tekrar? (Varsayılan: 5)
 nplus1.threshold=3
+
+# 20 ve katlarında log yazılır. (Varsayılan: 1)
+nplus1.log-interval=20
 
 # LOG veya EXCEPTION (Varsayılan: LOG)
 nplus1.error-level=EXCEPTION

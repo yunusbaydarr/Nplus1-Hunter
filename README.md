@@ -41,19 +41,25 @@ implementation 'com.nplus1-hunter:Nplus1-Hunter:0.0.1-SNAPSHOT'
 The default settings are sufficient for most projects.  
 If you want to change them, use `application.yml` or `application.properties`:
 
+#### application.yml
 ```yaml
 nplus1:
   enabled: true             # Enable/Disable the library (Default: true)
   threshold: 5              # How many repetitions before warning? (Default: 5)
+  log-interval: 20          # Logs are written every 20th occurrence. (Default: 1)
   error-level: LOG          # LOG (Only warns) or EXCEPTION (Crashes app) (Default: LOG)
 ```
 
+#### application.properties
 ```properties
 # Enable/Disable the library (Default: true)
 nplus1.enabled=false
 
 # How many repetitions before warning? (Default: 5)
 nplus1.threshold=3
+
+# Logs are written every 20th occurrence. (Default: 1)
+nplus1.log-interval= 20
 
 # LOG (Only warns) or EXCEPTION (Crashes app) (Default: LOG)
 nplus1.error-level=EXCEPTION
