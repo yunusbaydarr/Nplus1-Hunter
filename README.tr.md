@@ -81,6 +81,7 @@ nplus1.enabled=false
 nplus1.threshold=3
 
 # 20 ve katlarında log yazılır. (Varsayılan: 1)
+# Bu özellik yalnızca nplus1.error-level=LOG için geçerlidir.
 nplus1.log-interval=20
 
 # LOG veya EXCEPTION (Varsayılan: LOG)
