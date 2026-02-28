@@ -17,6 +17,15 @@ import java.util.Optional;
 
 public class QueryCaptureListener implements QueryExecutionListener {
 
+    private static final List<String> IGNORED_PATTERNS = List.of(
+            "1=0",
+            "nextval",
+            "hibernate_sequence",
+            "dual",
+            "FLYWAY",
+            "LIQUIBASE"
+    );
+
     private static final Logger logger = LoggerFactory.getLogger(QueryCaptureListener.class);
     private final SqlNormalizer normalizer = new SqlNormalizer();
     private final StackTraceAnalyzer stackTraceAnalyzer = new StackTraceAnalyzer();
@@ -40,7 +49,10 @@ public class QueryCaptureListener implements QueryExecutionListener {
         for (QueryInfo queryInfo : queryInfoList) {
             String originalSql = queryInfo.getQuery();
 
-            if (originalSql.contains("1=0")) {
+            boolean isIgnored = IGNORED_PATTERNS.stream()
+                    .anyMatch(pattern -> originalSql.toUpperCase().contains(pattern.toUpperCase()));
+
+            if (isIgnored) {
                 continue;
             }
 
