@@ -9,7 +9,7 @@ import net.ttddyy.dsproxy.QueryInfo;
 import net.ttddyy.dsproxy.listener.QueryExecutionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.nplus1_hunter.Nplus1_Hunter.stacktrace.StackTraceAnalyzer; // Bunu ekle
+import com.nplus1_hunter.Nplus1_Hunter.stacktrace.StackTraceAnalyzer;
 
 
 import java.util.List;
@@ -39,6 +39,11 @@ public class QueryCaptureListener implements QueryExecutionListener {
 
         for (QueryInfo queryInfo : queryInfoList) {
             String originalSql = queryInfo.getQuery();
+
+            if (originalSql.contains("1=0")) {
+                continue;
+            }
+
             String normalizedSql = normalizer.normalize(originalSql);
 
             String key = normalizedSql + "||" + location;
@@ -50,7 +55,7 @@ public class QueryCaptureListener implements QueryExecutionListener {
             if (count > properties.getThreshold()) {
 
                 if ("EXCEPTION".equalsIgnoreCase(properties.getErrorLevel())) {
-                    throw new RuntimeException(String.format("🚨 N+1 HATASI! (Tekrar: %d) - %s", count, location));
+                    throw new RuntimeException(String.format(" N+1 DETECTED! (Repetitions: %d) - %s", count, location));
                 }
 
                 boolean isFirstViolation = (count == properties.getThreshold() + 1);
@@ -67,13 +72,13 @@ public class QueryCaptureListener implements QueryExecutionListener {
 
     private void handleNPlusOne(String sql, int count, String location) {
         if ("EXCEPTION".equalsIgnoreCase(properties.getErrorLevel())) {
-            String errorMessage = String.format("🚨 N+1 PROBLEM DETECTED! (Repetitions: %d) - Location: %s", count, location);
+            String errorMessage = String.format(" N+1 PROBLEM DETECTED! (Repetitions: %d) - Location: %s", count, location);
             throw new RuntimeException(errorMessage);
         }
 
         logger.error("\u001B[31m✘ \u001B[33mN+1 PROBLEM DETECTED (Repetitions: \u001B[31m{}\u001B[33m)\u001B[0m", count);
-        logger.error("\u001B[33m📄 Query: {}\u001B[0m", sql);
-        logger.error("\u001B[33m📍 Location: \u001B[31m{}\u001B[0m", location);
+        logger.error("\u001B[33m Query: {}\u001B[0m", sql);
+        logger.error("\u001B[33m Location: \u001B[31m{}\u001B[0m", location);
     }
 
     @Override
