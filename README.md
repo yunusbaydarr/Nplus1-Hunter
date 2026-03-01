@@ -48,6 +48,9 @@ nplus1:
   threshold: 5              # How many repetitions before warning? (Default: 5)
   log-interval: 20          # Logs are written every 20th occurrence. (Default: 1) # This option is only valid when error-level:LOG.
   error-level: LOG          # LOG (Only warns) or EXCEPTION (Crashes app) (Default: LOG)
+  ignore-packages:          # Custom packages to exclude from stack trace analysis
+    - com.google.
+    - com.acme.common.
 ```
 
 #### application.properties
@@ -58,13 +61,16 @@ nplus1.enabled=false
 # How many repetitions before warning? (Default: 5)
 nplus1.threshold=3
 
-# Logs are written every 20th occurrence. (Default: 1)
+# In LOG mode, logs every Nth iteration (Default: 1).
 # This option is only valid when nplus1.error-level=LOG.
-
 nplus1.log-interval= 20
 
 # LOG (Only warns) or EXCEPTION (Crashes app) (Default: LOG)
 nplus1.error-level=EXCEPTION
+
+# Custom packages to exclude from stack trace analysis
+nplus1.ignore-packages[0]=com.google.
+nplus1.ignore-packages[1]=io.micrometer.
 ```
 
 ---
