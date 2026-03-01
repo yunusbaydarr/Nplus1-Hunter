@@ -28,15 +28,15 @@ public class QueryCaptureListener implements QueryExecutionListener {
 
     private static final Logger logger = LoggerFactory.getLogger(QueryCaptureListener.class);
     private final SqlNormalizer normalizer = new SqlNormalizer();
-    private final StackTraceAnalyzer stackTraceAnalyzer = new StackTraceAnalyzer();
+    private final StackTraceAnalyzer stackTraceAnalyzer;
 
     private final NPlusOneProperties properties;
 
     public QueryCaptureListener(NPlusOneProperties properties) {
         this.properties = properties;
+        this.stackTraceAnalyzer = new StackTraceAnalyzer(properties.getIgnorePackages());
     }
 
-//    private static final int N_PLUS_ONE_THRESHOLD = 3;
 
     @Override
     public void beforeQuery(ExecutionInfo execInfo, List<QueryInfo> queryInfoList) {
